@@ -1,0 +1,211 @@
+--Created database case-study-396701--
+
+CREATE TABLE divvy_quarter_tripdata. divvy_2022_2023_tripdata
+AS
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202203-divvy-tripdata`
+UNION All
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+From `case-study-396701.divvy_quarter_tripdata.202204-divvy-tripdata`
+UNION All
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202205-divvy-tripdata`
+UNION ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202206-divvy-tripdata`
+UNION ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202209-divvy-tripdata`
+UNION ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202301-divvy-tripdata`
+Union ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202302-divvy-tripdata`
+UNION ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202303-divvy-tripdata`
+UNION ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202304-divvy-tripdata`
+Union ALL
+SELECT ride_id,rideable_type, started_at, ended_at, member_casual, ride_time,day_of_week
+FROM `case-study-396701.divvy_quarter_tripdata.202305-divvy-tripdata`
+
+/* 
+Create this table through a union all to easily analyse the data to figure out a difference between members and casuals riders in areas such as ride time and days they choose to ride on.
+*/
+
+
+
+SELECT *
+FROM 
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+LIMIT
+ 150
+--Ran the table to make sure that the union query worked--
+
+SELECT
+ COUNT(*) AS row_count
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+
+--Ran a quick query to find the amount of rows in the table--
+
+SELECT
+ DISTINCT *
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+
+-- Returned all the distinct values--
+
+SELECT
+ ride_time
+ member_casual
+FROM 
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+ORDER BY 
+ ride_time DESC
+
+--Wanted to see the max ride_time which was 8 days-- 
+
+SELECT
+ Count(*)
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+WHERE
+ ride_time >1
+
+/*
+ Ran code and returned an error
+ No matching signature for operator > for argument types: STRING, INT64. Supported signature: ANY > ANY at 
+ [6:2]
+ Will run a query to change the case to see if I can bypass the INT64 return issue
+*/
+
+SELECT
+ CAST
+  (ride_time AS STRING) AS ride_length
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+
+-- Cast ride_time as a string and renamed to ride_length. Will run the new code--
+
+SELECT 
+ COUNT(*)
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+WHERE
+ ride_time > 1
+
+--Didn't acheive the results I wanted--
+
+UPDATE 
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+SET 
+ ride_time = >1
+WHERE 
+ ride_time = 1
+
+--Limited by a pay wall so will have to find another avenue in big query, will come back later.--
+
+SELECT
+ day_of_week,
+ member_casual,
+ COUNT(*) AS rides
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ day_of_week,
+ member_casual
+
+/*
+ Queried up the amount of rides for members and casual riders on each day.
+ Through this query one would notice that casual riders see an increase during the weekend days while 
+ members see a decrease during the weekend days
+*/
+
+-- A way to convert casual riders into members could involve member deals on weekends--
+
+/*
+ EX: Bring a friend at a discounted rate or for every min or mile traveled member will recieve a certain
+ percentage as a credit to another ride
+*/
+
+SELECT
+ COUNT(*) AS error
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+WHERE
+ NULL
+
+--No NULLS present in this worksheet--
+
+SELECT
+ rideable_type,
+ member_casual,
+ COUNT(*) AS ride_types
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ rideable_type,
+ member_casual
+
+/*
+ Through the query we notice that classic bike is the bike of choice for both members and casuals.
+ One thing to note is there are 5,824 bicycles offered. I would like to know the ratio of each bike
+ offered.
+*/
+
+SELECT 
+ ride_time,
+ member_casual,
+ COUNT(*) ride_count
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ ride_time,
+ member_casual
+
+SELECT
+ member_casual,
+ MAX(ride_time) AS max
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+ORDER BY
+ member_casual,
+ ride_time
+
+--SELECT list expression references column member_casual which is neither grouped nor aggregated at--
+
+SELECT
+ MAX(ride_time) AS MAX,
+ member_casual AS max_user
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ member_casual
+
+--Fixed the query to achieve the results I wanted--
+
+SELECT
+ MAX(ride_time) AS MAX,
+ member_casual AS max_user
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ member_casual
+
+SELECT
+ DISTINCT
+  day_of_week AS day,
+  member_casual AS user,
+  MAX(ride_time) AS max_ride
+FROM
+ `divvy_quarter_tripdata.divvy_2022_2023_tripdata`
+GROUP BY
+ day_of_week,
+ member_casual
+
+ --Found the max value for users on each day--
+
