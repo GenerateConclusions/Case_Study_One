@@ -57,7 +57,7 @@ I downloaded and unzipped all the files renaming each to a more standard name so
 
 I created a table that returned all the data I needed for the initial analysis. Combing through the data by querying up the row count and distinct value. I then queried the user count for each day and compared the difference between members and casuals. Noticing that casuals ride more during the weekends while members ride more during the week. I delved deeper by finding the max value between members and casuals on each day of the week noticing that casuals ride more than the members. 
 
-**RECOMMENDATIONS:
+**RECOMMENDATIONS:**
 
 Since members ride more on the weekends, we can offer a weekend deal to members. Such as a discounted rate.
 Casual riders tend to ride more than members so we can offer a membership app that tracks member’s rides and allows for them to easily post them in the app or on social media. This will motivate members and potential members. 
