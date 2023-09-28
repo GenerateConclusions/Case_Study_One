@@ -42,7 +42,9 @@ The data is made public allowing for use in this analysis.
 
 **Limitations:**
 
-The data is public so recurring casual riders and members cannot be identified due to maintaining privacy along with personal information. 
+The data is public so recurring casual riders and members cannot be identified due to maintaining privacy along with personal information.
+
+Through the query, we notice that the classic bike is the bike of choice for both members and casuals. One thing to note is there are 5,824 bicycles offered. I would like to know the ratio of each bike offered.
 
 **PROCESS:**
 
@@ -59,5 +61,5 @@ I created a table that returned all the data I needed for the initial analysis. 
 
 **RECOMMENDATIONS:**
 
-Since members ride more on the weekends, we can offer a weekend deal to members. Such as a discounted rate.
-Casual riders tend to ride more than members so we can offer a membership app that tracks member’s rides and allows for them to easily post them in the app or on social media. This will motivate members and potential members. 
+1. Since members ride more on the weekends, we can offer a weekend deal to members. Such as a discounted rate.
+2. Casual riders tend to ride more than members so we can offer a membership app that tracks member’s rides and allows them to easily post them in the app or on social media. This will motivate members and potential members. 
