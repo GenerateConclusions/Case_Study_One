@@ -63,3 +63,4 @@ I created a table that returned all the data I needed for the initial analysis. 
 
 1. Since members ride more on the weekends, we can offer a weekend deal to members. Such as a discounted rate.
 2. Casual riders tend to ride more than members so we can offer a membership app that tracks member’s rides and allows them to easily post them in the app or on social media. This will motivate members and potential members. 
+3. Bring a friend at a discounted rate or for every minute or mile traveled member will receive a certain percentage as a credit to another ride.
